@@ -1,6 +1,8 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import './index.css'
 import { TooltipProvider } from './components/ui/tooltip'
+import 'ag-grid-community/styles/ag-grid.css'
+import 'ag-grid-community/styles/ag-theme-quartz.css'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

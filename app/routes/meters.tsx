@@ -1,6 +1,11 @@
 import { Link, Outlet } from '@remix-run/react'
 import clsx from 'clsx'
 
+import { AgGridReact } from 'ag-grid-react'
+import { useCallback, useMemo, useState } from 'react'
+
+import { CellValueChangedEvent, ColDef } from 'ag-grid-community'
+
 const METERS = {
   gt: {
     GT1: [
@@ -192,15 +197,15 @@ export default function Dashboard() {
                     className="inline-block p-2 bg-background space-y-2 first:rounded-l-lg last:rounded-r-lg border"
                   >
                     <h6 className="ml-1 font-bold tracking-widest">{meter_type}</h6>
-                    <div className="flex p-1 items-center rounded-md text-sm font-semibold bg-muted shadow border border-borderss">
+                    <div className="flex p-1 items-center rounded-md text-sm font-semibold bg-stone-200 shadow border border-borderss">
                       {meters.map((meter) => {
                         return (
                           <li
                             key={meter.id}
                             className={clsx(
-                              ' px-2 py-1 size-full flex items-center',
+                              ' px-2 py-1 size-full flex items-center hover:bg-stone-300 transition-all',
                               meter.is_exists ? 'text-shadow-green' : 'text-shadow-red',
-                              meter.id === 2 && 'bg-stone-300',
+                              meter.id === 2 && 'bg-muted shadow',
                               meter.type === 'check'
                                 ? 'rounded-r-sm border-l-2 border-l-stone-300'
                                 : 'rounded-l-sm'
@@ -219,7 +224,7 @@ export default function Dashboard() {
         })}
       </ul>
 
-      <ul className="flex justify-center">
+      <ul className="flex justify-start">
         {Object.entries(METERS).map(([meter_type, meters]) => {
           return (
             <div
@@ -236,17 +241,13 @@ export default function Dashboard() {
 
                     {meters.map((meter) => {
                       return (
-                        <li
-                          key={meter.id}
-                          className={clsx(
-                            'flex px-3 py-1.5 items-center rounded-md text-sm font-semibold bg-muted shadow border border-border',
-                            meter.id === 2 && 'bg-stone-300'
-                          )}
-                        >
+                        <li key={meter.id}>
                           <Link
                             to="#"
                             className={clsx(
-                              'rounded-sm size-full flex items-center',
+                              'flex items-center px-3 w-full py-1.5 rounded-md text-sm font-semibold bg-muted',
+                              'border border-border shadow hover:bg-stone-300 transition-all',
+                              meter.id === 2 && 'bg-stone-300',
                               meter.is_exists ? 'text-shadow-green' : 'text-shadow-red'
                             )}
                           >
@@ -262,7 +263,89 @@ export default function Dashboard() {
           )
         })}
       </ul>
+      <EditableGridExample />
       <Outlet />
+    </div>
+  )
+}
+
+export interface IOlympicData {
+  id: number
+  athlete: string
+  age: number
+  country: string
+  year: number
+  date: string
+  sport: string
+  gold: number
+  silver: number
+  bronze: number
+  total: number
+}
+
+const EditableGridExample = () => {
+  const containerStyle = useMemo(() => ({ width: '100%', height: '400px' }), [])
+  const gridStyle = useMemo(() => ({ height: '100%', width: '100%' }), [])
+  const [rowData, setRowData] = useState<IOlympicData[]>()
+  const [columnDefs] = useState<ColDef[]>([
+    { field: 'athlete', minWidth: 160 },
+    { field: 'age' },
+    { field: 'country', minWidth: 140 },
+    { field: 'year' },
+    { field: 'date', minWidth: 140 },
+    { field: 'sport', minWidth: 160 },
+    { field: 'gold' },
+    { field: 'silver' },
+    { field: 'bronze' },
+    { field: 'total' },
+  ])
+  const defaultColDef = useMemo<ColDef>(() => {
+    return {
+      flex: 1,
+      minWidth: 100,
+      editable: true,
+    }
+  }, [])
+
+  const onGridReady = useCallback(() => {
+    fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
+      .then((resp) => resp.json())
+      .then((data: IOlympicData[]) => {
+        data.forEach((item, index) => (item.id = index))
+        setRowData(data)
+      })
+  }, [])
+
+  const cellValueChanged = useCallback(
+    (event: CellValueChangedEvent<IOlympicData, string | number>) => {
+      console.log(event)
+      const data = event.data // get the new data of the row
+      const field = event.colDef.field // get the key of the object
+      const newValue = event.newValue // get the new value of the cell
+      const oldItem = rowData?.find((row) => row.id === data.id)
+      if (!oldItem || !field) {
+        return
+      }
+      console.log('onCellEditRequest, updating ' + field + ' to ' + newValue)
+      const newData = rowData?.map((oldItem) => (oldItem.id == data.id ? data : oldItem))
+      setRowData(newData)
+    },
+    [rowData]
+  )
+
+  console.log(rowData && { newData: rowData[0] })
+
+  return (
+    <div style={containerStyle}>
+      <div style={gridStyle} className={'ag-theme-quartz'}>
+        <AgGridReact<IOlympicData>
+          rowData={rowData}
+          columnDefs={columnDefs}
+          defaultColDef={defaultColDef}
+          onGridReady={onGridReady}
+          onCellValueChanged={cellValueChanged}
+        />
+      </div>
     </div>
   )
 }

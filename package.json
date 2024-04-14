@@ -24,6 +24,7 @@
     "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",
     "@remix-run/serve": "^2.8.1",
+    "ag-grid-community": "^31.2.1",
     "ag-grid-react": "^31.2.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
