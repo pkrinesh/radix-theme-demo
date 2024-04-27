@@ -201,7 +201,7 @@ export default function Dashboard() {
                     <Heading as="h6" size="2">
                       {meter_type}
                     </Heading>
-                    <Flex align="center" className="rounded-md bg-[--gray-4]">
+                    <Flex align="center" className="rounded bg-[--gray-4]">
                       {meters.map((meter) => {
                         return (
                           <li key={meter.id}>
@@ -209,11 +209,11 @@ export default function Dashboard() {
                               to="#"
                               className={clsx(
                                 'flex px-2 py-1 hover:bg-[--gray-6] transition-all',
-                                meter.is_exists ? 'text-[--teal-9]' : 'text-[--ruby-9]',
+                                meter.is_exists ? 'text-[--jade-9]' : 'text-[--ruby-9]',
                                 meter.id === 2 && 'bg-[--gray-6]',
                                 meter.type === 'check'
-                                  ? 'rounded-r-md border-l border-[--gray-6]'
-                                  : 'rounded-l-md border-r border-[--gray-6]'
+                                  ? 'rounded-r border-l border-[--gray-6]'
+                                  : 'rounded-l border-r border-[--gray-6]'
                               )}
                             >
                               <Text weight="medium" size="2">

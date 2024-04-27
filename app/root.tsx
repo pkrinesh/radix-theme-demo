@@ -1,5 +1,4 @@
-import { Box, Flex, Text, Theme } from '@radix-ui/themes'
-import '@radix-ui/themes/styles.css'
+import { Box, Flex, Text, Theme, ThemePanel } from '@radix-ui/themes'
 import { Links, Meta, NavLink, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
@@ -26,7 +25,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <Theme>
+    <Theme accentColor="indigo" grayColor="gray">
       <Flex direction="column" minHeight="100vh" className="bg-[--gray-1]">
         <Box
           asChild
@@ -76,6 +75,7 @@ export default function App() {
           <Outlet />
         </Box>
       </Flex>
+      <ThemePanel />
     </Theme>
   )
 }

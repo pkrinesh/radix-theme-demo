@@ -1,3 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer tw_base, tw_components_utils, radix_ui;
+
+@import '@radix-ui/themes/tokens/base.css' layer(radix_ui);
+
+@import '@radix-ui/themes/tokens/colors/indigo.css' layer(radix_ui);
+@import '@radix-ui/themes/tokens/colors/ruby.css' layer(radix_ui);
+@import '@radix-ui/themes/tokens/colors/jade.css' layer(radix_ui);
+@import '@radix-ui/themes/tokens/colors/gray.css' layer(radix_ui);
+
+@import '@radix-ui/themes/components.css' layer(radix_ui);
+@import '@radix-ui/themes/utilities.css' layer(radix_ui);
+
+@layer tw_base {
+  @tailwind base;
+}
+
+@layer tw_components_utils {
+  @tailwind components;
+  @tailwind utilities;
+}
