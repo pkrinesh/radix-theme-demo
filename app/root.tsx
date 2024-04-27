@@ -1,8 +1,10 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
-import './index.css'
-import { TooltipProvider } from './components/ui/tooltip'
+import { Box, Flex, Text, Theme } from '@radix-ui/themes'
+import '@radix-ui/themes/styles.css'
+import { Links, Meta, NavLink, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
+import clsx from 'clsx'
+import './index.css'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,8 +26,56 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <TooltipProvider>
-      <Outlet />
-    </TooltipProvider>
+    <Theme>
+      <Flex direction="column" minHeight="100vh" className="bg-[--gray-1]">
+        <Box
+          asChild
+          position="fixed"
+          top="0"
+          className="w-full bg-[--gray-surface] backdrop-blur-sm z-10 border-b border-[--gray-5]"
+        >
+          <header>
+            <Flex gap="4" className="px-8 max-w-screen-2xl items-center h-14">
+              <Text weight="bold" size="4">
+                Radix Themes
+              </Text>
+              <nav>
+                <ul className="flex gap-4">
+                  <li>
+                    <NavLink
+                      to="/"
+                      className={({ isActive }) =>
+                        clsx(
+                          'text-sm hover:text-[--gray-11]',
+                          isActive ? 'text-[--gray-12]' : 'text-[--gray-10]'
+                        )
+                      }
+                    >
+                      Dashboard
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/meters"
+                      className={({ isActive }) =>
+                        clsx(
+                          'text-sm hover:text-[--gray-11]',
+                          isActive ? 'text-[--gray-12]' : 'text-[--gray-10]'
+                        )
+                      }
+                    >
+                      Meters
+                    </NavLink>
+                  </li>
+                </ul>
+              </nav>
+            </Flex>
+          </header>
+        </Box>
+        <Box className="mt-14">
+          <Outlet />
+        </Box>
+      </Flex>
+    </Theme>
   )
 }

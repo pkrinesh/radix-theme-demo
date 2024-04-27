@@ -5,6 +5,7 @@ import { AgGridReact } from 'ag-grid-react'
 import { useCallback, useMemo, useState } from 'react'
 
 import { CellValueChangedEvent, ColDef } from 'ag-grid-community'
+import { Box, Flex, Heading, Text } from '@radix-ui/themes'
 
 const METERS = {
   gt: {
@@ -185,87 +186,55 @@ const METERS = {
 
 export default function Dashboard() {
   return (
-    <div className="p-4 min-h-screen space-y-4 w-full bg-stone-100">
-      <ul className="flex flex-nowrap">
+    <Box p="6" width="100%" className="space-y-4">
+      <ul className="flex justify-between flex-nowrap">
         {Object.entries(METERS).map(([meter_type, meters]) => {
           return (
-            <div key={meter_type} className="flex">
+            <Flex key={meter_type}>
               {Object.entries(meters).map(([meter_type, meters]) => {
                 return (
-                  <div
+                  <Box
+                    p="2"
                     key={meter_type}
-                    className="inline-block p-2 bg-background space-y-2 first:rounded-l-lg last:rounded-r-lg border"
+                    className="bg-[--gray-2] space-y-2 first:rounded-l-lg last:rounded-r-lg border border-[--gray-6]"
                   >
-                    <h6 className="ml-1 font-bold tracking-widest">{meter_type}</h6>
-                    <div className="flex p-1 items-center rounded-md text-sm font-semibold bg-stone-200 shadow border border-borderss">
+                    <Heading as="h6" size="2">
+                      {meter_type}
+                    </Heading>
+                    <Flex align="center" className="rounded-md bg-[--gray-4]">
                       {meters.map((meter) => {
                         return (
-                          <li
-                            key={meter.id}
-                            className={clsx(
-                              ' px-2 py-1 size-full flex items-center hover:bg-stone-300 transition-all',
-                              meter.is_exists ? 'text-shadow-green' : 'text-shadow-red',
-                              meter.id === 2 && 'bg-muted shadow',
-                              meter.type === 'check'
-                                ? 'rounded-r-sm border-l-2 border-l-stone-300'
-                                : 'rounded-l-sm'
-                            )}
-                          >
-                            <Link to="#">{meter.type}</Link>
+                          <li key={meter.id}>
+                            <Link
+                              to="#"
+                              className={clsx(
+                                'flex px-2 py-1 hover:bg-[--gray-6] transition-all',
+                                meter.is_exists ? 'text-[--teal-9]' : 'text-[--ruby-9]',
+                                meter.id === 2 && 'bg-[--gray-6]',
+                                meter.type === 'check'
+                                  ? 'rounded-r-md border-l border-[--gray-6]'
+                                  : 'rounded-l-md border-r border-[--gray-6]'
+                              )}
+                            >
+                              <Text weight="medium" size="2">
+                                {meter.type}
+                              </Text>
+                            </Link>
                           </li>
                         )
                       })}
-                    </div>
-                  </div>
+                    </Flex>
+                  </Box>
                 )
               })}
-            </div>
+            </Flex>
           )
         })}
       </ul>
 
-      <ul className="flex justify-start">
-        {Object.entries(METERS).map(([meter_type, meters]) => {
-          return (
-            <div
-              key={meter_type}
-              className="border flex gap-2 border-stone-300 p-3 first:rounded-l-xl last:rounded-r-xl"
-            >
-              {Object.entries(meters).map(([meter_type, meters]) => {
-                return (
-                  <div
-                    key={meter_type}
-                    className="inline-block py-2 px-4 bg-background space-y-2 rounded-lg border border-border"
-                  >
-                    <h6 className="ml-1 font-bold tracking-widest">{meter_type}</h6>
-
-                    {meters.map((meter) => {
-                      return (
-                        <li key={meter.id}>
-                          <Link
-                            to="#"
-                            className={clsx(
-                              'flex items-center px-3 w-full py-1.5 rounded-md text-sm font-semibold bg-muted',
-                              'border border-border shadow hover:bg-stone-300 transition-all',
-                              meter.id === 2 && 'bg-stone-300',
-                              meter.is_exists ? 'text-shadow-green' : 'text-shadow-red'
-                            )}
-                          >
-                            {meter.type}
-                          </Link>
-                        </li>
-                      )
-                    })}
-                  </div>
-                )
-              })}
-            </div>
-          )
-        })}
-      </ul>
       <EditableGridExample />
       <Outlet />
-    </div>
+    </Box>
   )
 }
 
@@ -336,8 +305,8 @@ const EditableGridExample = () => {
   console.log(rowData && { newData: rowData[0] })
 
   return (
-    <div style={containerStyle}>
-      <div style={gridStyle} className={'ag-theme-quartz'}>
+    <Box style={containerStyle}>
+      <Box style={gridStyle} className={'ag-theme-quartz'}>
         <AgGridReact<IOlympicData>
           rowData={rowData}
           columnDefs={columnDefs}
@@ -345,7 +314,7 @@ const EditableGridExample = () => {
           onGridReady={onGridReady}
           onCellValueChanged={cellValueChanged}
         />
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
