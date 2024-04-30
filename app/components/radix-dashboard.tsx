@@ -12,6 +12,7 @@ import {
   PlusIcon,
   Share2Icon,
 } from '@radix-ui/react-icons'
+
 import {
   Avatar,
   Badge,
@@ -46,8 +47,8 @@ const Marker = (props: React.ComponentPropsWithoutRef<typeof Flex>) => (
     height="16px"
     {...props}
     style={{
-      color: 'var(--teal-11)',
-      backgroundColor: 'var(--teal-a4)',
+      color: 'var(--jade-11)',
+      backgroundColor: 'var(--jade-a4)',
       borderRadius: '100%',
       ...props.style,
     }}
@@ -139,7 +140,7 @@ export const ExampleThemesDashboard = ({ focusable = true, ...props }: ExampleLa
                         <DropdownMenu.Item>View profile</DropdownMenu.Item>
                         <DropdownMenu.Item>Change role</DropdownMenu.Item>
                         <DropdownMenu.Separator />
-                        <DropdownMenu.Item color="red">Remove</DropdownMenu.Item>
+                        <DropdownMenu.Item color="ruby">Remove</DropdownMenu.Item>
                       </DropdownMenu.Content>
                     </DropdownMenu.Root>
                   </Flex>
@@ -573,7 +574,7 @@ export const ExampleThemesDashboard = ({ focusable = true, ...props }: ExampleLa
           </Box>
 
           <Flex mt="6" justify="end" gap="3">
-            <Button tabIndex={tabIndex} variant="soft" color="red">
+            <Button tabIndex={tabIndex} variant="soft" color="ruby">
               Freeze
             </Button>
             <Button tabIndex={tabIndex}>Done</Button>
@@ -603,7 +604,6 @@ export const ExampleThemesDashboard = ({ focusable = true, ...props }: ExampleLa
 
           <Flex direction="column" gap="3" align="stretch">
             <Button tabIndex={tabIndex}>Next invoice</Button>
-
             <Button tabIndex={tabIndex} variant="outline">
               Done
             </Button>
@@ -699,7 +699,7 @@ export const ExampleThemesDashboard = ({ focusable = true, ...props }: ExampleLa
           </Grid>
 
           <Flex mt="6" justify="end" gap="3">
-            <Button tabIndex={tabIndex} variant="soft" color="red">
+            <Button tabIndex={tabIndex} variant="soft" color="ruby">
               Reject
             </Button>
             <Button tabIndex={tabIndex}>Approve</Button>
@@ -752,7 +752,7 @@ export const ExampleThemesDashboard = ({ focusable = true, ...props }: ExampleLa
                 <Text size="2" color="gray">
                   MRR
                 </Text>
-                <Badge color="teal" radius="full">
+                <Badge color="jade" radius="full">
                   <ArrowUpIcon width="12" height="12" style={{ marginLeft: -2 }} />
                   3.2%
                 </Badge>
@@ -767,7 +767,7 @@ export const ExampleThemesDashboard = ({ focusable = true, ...props }: ExampleLa
                 <Text size="2" color="gray">
                   OpEx
                 </Text>
-                <Badge color="red" radius="full">
+                <Badge color="ruby" radius="full">
                   <ArrowUpIcon width="12" height="12" style={{ marginLeft: -2 }} />
                   12.8%
                 </Badge>
@@ -782,7 +782,7 @@ export const ExampleThemesDashboard = ({ focusable = true, ...props }: ExampleLa
                 <Text size="2" color="gray">
                   CapEx
                 </Text>
-                <Badge color="teal" radius="full">
+                <Badge color="jade" radius="full">
                   <ArrowDownIcon width="12" height="12" style={{ marginLeft: -2 }} />
                   8.8%
                 </Badge>
@@ -797,7 +797,7 @@ export const ExampleThemesDashboard = ({ focusable = true, ...props }: ExampleLa
                 <Text size="2" color="gray">
                   GPM
                 </Text>
-                <Badge color="red" radius="full">
+                <Badge color="ruby" radius="full">
                   <ArrowDownIcon width="12" height="12" style={{ marginLeft: -2 }} />
                   1.2%
                 </Badge>
@@ -826,7 +826,7 @@ export const ExampleThemesDashboard = ({ focusable = true, ...props }: ExampleLa
                 <Text size="2" color="gray">
                   EBITDA
                 </Text>
-                <Badge color="teal" radius="full">
+                <Badge color="jade" radius="full">
                   <ArrowUpIcon width="12" height="12" style={{ marginLeft: -2 }} />
                   4.1%
                 </Badge>
@@ -841,7 +841,7 @@ export const ExampleThemesDashboard = ({ focusable = true, ...props }: ExampleLa
                 <Text size="2" color="gray">
                   CAC
                 </Text>
-                <Badge color="teal" radius="full">
+                <Badge color="jade" radius="full">
                   <ArrowDownIcon width="12" height="12" style={{ marginLeft: -2 }} />
                   11.0%
                 </Badge>
@@ -856,7 +856,7 @@ export const ExampleThemesDashboard = ({ focusable = true, ...props }: ExampleLa
                 <Text size="2" color="gray">
                   LTV
                 </Text>
-                <Badge color="teal" radius="full">
+                <Badge color="jade" radius="full">
                   <ArrowUpIcon width="12" height="12" style={{ marginLeft: -2 }} />
                   3%
                 </Badge>
@@ -871,7 +871,7 @@ export const ExampleThemesDashboard = ({ focusable = true, ...props }: ExampleLa
                 <Text size="2" color="gray">
                   Churn
                 </Text>
-                <Badge color="red" radius="full">
+                <Badge color="ruby" radius="full">
                   <ArrowUpIcon width="12" height="12" style={{ marginLeft: -2 }} />
                   1.1%
                 </Badge>
