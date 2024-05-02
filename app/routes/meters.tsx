@@ -1,239 +1,114 @@
-import { Link, Outlet } from '@remix-run/react'
-import clsx from 'clsx'
-
 import { AgGridReact } from 'ag-grid-react'
 import { useCallback, useMemo, useState } from 'react'
 
+import { cn } from '@/lib/utils'
+import { Box, Button, DropdownMenu, Flex, Heading, Tabs, Text } from '@radix-ui/themes'
 import { CellValueChangedEvent, ColDef } from 'ag-grid-community'
-import { Box, Flex, Heading, Text } from '@radix-ui/themes'
-
-const METERS = {
-  gt: {
-    GT1: [
-      {
-        id: 1,
-        name: 'GT1',
-        type: 'main',
-        is_exists: true,
-      },
-      {
-        id: 2,
-        name: 'GT1',
-        type: 'check',
-        is_exists: false,
-      },
-    ],
-    GT2: [
-      {
-        id: 3,
-        name: 'GT2',
-        type: 'main',
-        is_exists: false,
-      },
-      {
-        id: 4,
-        name: 'GT2',
-        type: 'check',
-        is_exists: true,
-      },
-    ],
-    GT3: [
-      {
-        id: 5,
-        name: 'GT3',
-        type: 'main',
-        is_exists: true,
-      },
-      {
-        id: 6,
-        name: 'GT3',
-        type: 'check',
-        is_exists: true,
-      },
-    ],
-    GT4: [
-      {
-        id: 7,
-        name: 'GT4',
-        type: 'main',
-        is_exists: false,
-      },
-      {
-        id: 8,
-        name: 'GT4',
-        type: 'check',
-        is_exists: false,
-      },
-    ],
-  },
-  st: {
-    ST1: [
-      {
-        id: 9,
-        name: 'ST1',
-        type: 'main',
-        is_exists: false,
-      },
-      {
-        id: 10,
-        name: 'ST1',
-        type: 'check',
-        is_exists: false,
-      },
-    ],
-    ST2: [
-      {
-        id: 11,
-        name: 'ST2',
-        type: 'main',
-        is_exists: true,
-      },
-      {
-        id: 12,
-        name: 'ST2',
-        type: 'check',
-        is_exists: false,
-      },
-    ],
-  },
-  line: {
-    LINE1: [
-      {
-        id: 13,
-        name: 'LINE1',
-        type: 'main',
-        is_exists: true,
-      },
-      {
-        id: 14,
-        name: 'LINE1',
-        type: 'check',
-        is_exists: false,
-      },
-    ],
-    LINE2: [
-      {
-        id: 15,
-        name: 'LINE2',
-        type: 'main',
-        is_exists: true,
-      },
-      {
-        id: 16,
-        name: 'LINE2',
-        type: 'check',
-        is_exists: false,
-      },
-    ],
-    LINE3: [
-      {
-        id: 17,
-        name: 'LINE3',
-        type: 'main',
-        is_exists: true,
-      },
-      {
-        id: 18,
-        name: 'LINE3',
-        type: 'check',
-        is_exists: false,
-      },
-    ],
-    LINE4: [
-      {
-        id: 19,
-        name: 'LINE4',
-        type: 'main',
-        is_exists: true,
-      },
-      {
-        id: 20,
-        name: 'LINE4',
-        type: 'check',
-        is_exists: false,
-      },
-    ],
-    LINE5: [
-      {
-        id: 21,
-        name: 'LINE5',
-        type: 'main',
-        is_exists: true,
-      },
-      {
-        id: 22,
-        name: 'LINE5',
-        type: 'check',
-        is_exists: false,
-      },
-    ],
-    LINE6: [
-      {
-        id: 23,
-        name: 'LINE6',
-        type: 'main',
-        is_exists: true,
-      },
-      {
-        id: 24,
-        name: 'LINE6',
-        type: 'check',
-        is_exists: false,
-      },
-    ],
-  },
-}
+import { BookmarkIcon, TableIcon, UploadIcon } from '@radix-ui/react-icons'
+import { Link } from '@remix-run/react'
+import { METERS_LIST } from '@/lib/meters-list'
 
 export default function Dashboard() {
   return (
-    <Box p="6" width="100%" className="space-y-4">
+    <Box px="6" py="3" width="100%" className="space-y-2">
+      <Heading>Meters</Heading>
       <ul className="flex justify-between flex-nowrap">
-        {Object.entries(METERS).map(([meter_type, meters]) => {
+        {Object.entries(METERS_LIST).map(([meter_type, meters]) => {
           return (
-            <Flex key={meter_type}>
-              {Object.entries(meters).map(([meter_type, meters]) => {
-                return (
-                  <Box
-                    p="2"
-                    key={meter_type}
-                    className="bg-[--gray-2] space-y-2 first:rounded-l-lg last:rounded-r-lg border border-[--gray-6]"
-                  >
-                    <Heading as="h6" size="2">
-                      {meter_type}
-                    </Heading>
-                    <Flex align="center" className="rounded bg-[--gray-4]">
-                      {meters.map((meter) => {
-                        return (
-                          <li key={meter.id}>
-                            <Link
-                              to="#"
-                              className={clsx(
-                                'flex px-2 py-1 hover:bg-[--gray-6] transition-all',
-                                meter.is_exists ? 'text-[--jade-9]' : 'text-[--ruby-9]',
-                                meter.id === 2 && 'bg-[--gray-6]',
-                                meter.type === 'check'
-                                  ? 'rounded-r border-l border-[--gray-6]'
-                                  : 'rounded-l border-r border-[--gray-6]'
-                              )}
-                            >
-                              <Text weight="medium" size="2">
-                                {meter.type}
-                              </Text>
-                            </Link>
-                          </li>
-                        )
-                      })}
-                    </Flex>
-                  </Box>
-                )
-              })}
+            <Flex direction="column" key={meter_type}>
+              <Flex
+                justify="center"
+                align="center"
+                className="bg-[--gray-3] border border-[--gray-6] rounded-t-md"
+              >
+                <Text size="2">{meter_type}</Text>
+              </Flex>
+              <Flex>
+                {Object.entries(meters).map(([meter_type, meters]) => {
+                  return (
+                    <Box
+                      p="2"
+                      minWidth="80px"
+                      key={meter_type}
+                      className="bg-[--gray-2] space-y-2 first:rounded-bl-md last:rounded-br-md border border-[--gray-6]"
+                    >
+                      <Flex justify="between" align="center" gap="4">
+                        <Heading as="h6" size="2">
+                          {meter_type}
+                        </Heading>
+                      </Flex>
+                      <Flex direction="column" align="stretch" gap="1">
+                        {meters.map((meter) => {
+                          return (
+                            <li key={meter.id}>
+                              <DropdownMenu.Root>
+                                <DropdownMenu.Trigger>
+                                  <Button
+                                    size="1"
+                                    color={meter.is_exist ? 'jade' : 'ruby'}
+                                    variant="soft"
+                                    className={cn(
+                                      'w-full',
+                                      meter.is_primary && meter.is_exist && 'bg-[--jade-7]'
+                                    )}
+                                  >
+                                    {meter.type}
+                                  </Button>
+                                </DropdownMenu.Trigger>
+                                <DropdownMenu.Content>
+                                  <DropdownMenu.Item asChild>
+                                    <Link to="/">
+                                      {meter.is_exist ? (
+                                        <>
+                                          <TableIcon />
+                                          View meter data
+                                        </>
+                                      ) : (
+                                        <>
+                                          <UploadIcon />
+                                          Upload meter data
+                                        </>
+                                      )}
+                                    </Link>
+                                  </DropdownMenu.Item>
+                                  <DropdownMenu.Item
+                                    onClick={() => console.log('Bookmarked')}
+                                    disabled={!meter.is_exist || meter.is_primary}
+                                  >
+                                    <BookmarkIcon />
+                                    Set as a Primary{' '}
+                                  </DropdownMenu.Item>
+                                </DropdownMenu.Content>
+                              </DropdownMenu.Root>
+                            </li>
+                          )
+                        })}
+                      </Flex>
+                    </Box>
+                  )
+                })}
+              </Flex>
             </Flex>
           )
         })}
       </ul>
 
-      <EditableGridExample />
-      <Outlet />
+      <Tabs.Root defaultValue="deviation">
+        <Tabs.List>
+          <Tabs.Trigger value="deviation">Deviation</Tabs.Trigger>
+          <Tabs.Trigger value="meters">Meters</Tabs.Trigger>
+        </Tabs.List>
+
+        <Box pt="3">
+          <Tabs.Content value="deviation">
+            <EditableGridExample />
+          </Tabs.Content>
+
+          <Tabs.Content value="meters">
+            <EditableGridExample />
+          </Tabs.Content>
+        </Box>
+      </Tabs.Root>
     </Box>
   )
 }
@@ -302,8 +177,6 @@ const EditableGridExample = () => {
     [rowData]
   )
 
-  console.log(rowData && { newData: rowData[0] })
-
   return (
     <Box style={containerStyle}>
       <Box style={gridStyle} className={'ag-theme-quartz'}>
@@ -313,6 +186,7 @@ const EditableGridExample = () => {
           defaultColDef={defaultColDef}
           onGridReady={onGridReady}
           onCellValueChanged={cellValueChanged}
+          noRowsOverlayComponent={() => <Text>No Data found</Text>}
         />
       </Box>
     </Box>

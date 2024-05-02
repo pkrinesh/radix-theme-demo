@@ -1,4 +1,4 @@
-@layer tw_base, tw_components_utils, radix_ui;
+@layer tw_base, radix_ui, tw_components_utils;
 
 @import '@radix-ui/themes/tokens/base.css' layer(radix_ui);
 
@@ -17,59 +17,4 @@
 @layer tw_components_utils {
   @tailwind components;
   @tailwind utilities;
-}
-
-@layer base {
-  html {
-    -webkit-text-size-adjust: 100%;
-    font-variation-settings: normal;
-  }
-  body {
-    font-feature-settings: 'rlig' 1, 'calt' 1;
-  }
-
-  /* Mobile tap highlight */
-  /* https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-tap-highlight-color */
-  html {
-    -webkit-tap-highlight-color: rgba(128, 128, 128, 0.5);
-  }
-
-  /* === Scrollbars === */
-
-  ::-webkit-scrollbar {
-    @apply w-2;
-    @apply h-2;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply !bg-gray-100;
-  }
-  ::-webkit-scrollbar-thumb {
-    @apply rounded-sm !bg-gray-800/30;
-  }
-
-  /* Firefox */
-  /* https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color#browser_compatibility */
-
-  html {
-    scrollbar-color: hsl(215.4 16.3% 46.9% / 0.3);
-  }
-
-  html.dark {
-    scrollbar-color: hsl(215.4 16.3% 56.9% / 0.3);
-  }
-
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .antialised {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
 }

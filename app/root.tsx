@@ -1,9 +1,9 @@
+import './index.css'
 import { Box, Flex, Text, Theme, ThemePanel } from '@radix-ui/themes'
 import { Links, Meta, NavLink, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
 import clsx from 'clsx'
-import './index.css'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
