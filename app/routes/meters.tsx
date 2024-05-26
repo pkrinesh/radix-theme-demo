@@ -7,14 +7,24 @@ import { CellValueChangedEvent, ColDef } from 'ag-grid-community'
 import { BookmarkIcon, TableIcon, UploadIcon } from '@radix-ui/react-icons'
 import { Link as RouterLink } from '@remix-run/react'
 import { METERS_LIST } from '@/lib/meters-list'
-import { Breadcrumbs } from '@/components/breadcrumbs'
+import { Breadcrumb } from '@/components/breadcrumb'
+import { Sheet } from '@/components/sheet'
 
 export default function Dashboard() {
   return (
     <Box width="100%">
-      <Box p="4" mb="4" className="border-b">
-        <Breadcrumbs links={[{ label: 'Home', to: '/' }, { label: 'Meters' }]} />
-      </Box>
+      <Flex p="4" mb="4" className="border-b" justify="between">
+        <Breadcrumb links={[{ label: 'Home', to: '/' }, { label: 'Meters' }]} />
+        <Sheet.Root>
+          <Sheet.Trigger>
+            <Button>Open</Button>
+          </Sheet.Trigger>
+          <Sheet.Content side="left" maxWidth="280px">
+            <Sheet.Title>Radix Theme</Sheet.Title>
+            <Sheet.Description>This is Sheet/SideOverlay component</Sheet.Description>
+          </Sheet.Content>
+        </Sheet.Root>
+      </Flex>
 
       <Box px="4">
         <ul className="flex justify-between flex-nowrap">

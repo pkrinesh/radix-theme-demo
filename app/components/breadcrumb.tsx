@@ -100,7 +100,7 @@ const BreadcrumbEllipsis = ({ className, ...props }: React.ComponentProps<'span'
 )
 BreadcrumbEllipsis.displayName = 'BreadcrumbElipssis'
 
-export const Breadcrumb = {
+export const BreadcrumbPrimitive = {
   Root: BreadcrumbRoot,
   Item: BreadcrumbItem,
   Link: BreadcrumbLink,
@@ -110,38 +110,38 @@ export const Breadcrumb = {
   Ellipsis: BreadcrumbEllipsis,
 }
 
-type BreadcrumbsCompProps = {
+type Breadcrumb = {
   links: Array<{ label: string; to?: string; RenderLink?: () => React.ReactNode }>
 }
 
-export const Breadcrumbs = ({ links }: BreadcrumbsCompProps) => {
+export const Breadcrumb = ({ links }: Breadcrumb) => {
   return (
-    <Breadcrumb.Root>
-      <Breadcrumb.List>
+    <BreadcrumbPrimitive.Root>
+      <BreadcrumbPrimitive.List>
         {links.map((link, index) => {
           return (
             <React.Fragment key={link.label}>
-              <Breadcrumb.Item>
+              <BreadcrumbPrimitive.Item>
                 {index === links.length - 1 ? (
-                  <Breadcrumb.Page>{link.label}</Breadcrumb.Page>
+                  <BreadcrumbPrimitive.Page>{link.label}</BreadcrumbPrimitive.Page>
                 ) : link.to ? (
-                  <Breadcrumb.Link asChild>
+                  <BreadcrumbPrimitive.Link asChild>
                     {link.RenderLink ? (
                       link.RenderLink()
                     ) : (
                       <RouterLink to={link.to}>Home</RouterLink>
                     )}
-                  </Breadcrumb.Link>
+                  </BreadcrumbPrimitive.Link>
                 ) : (
-                  <Breadcrumb.Page isActive={false}>{link.label}</Breadcrumb.Page>
+                  <BreadcrumbPrimitive.Page isActive={false}>{link.label}</BreadcrumbPrimitive.Page>
                 )}
-              </Breadcrumb.Item>
+              </BreadcrumbPrimitive.Item>
 
-              {index !== links.length - 1 ? <Breadcrumb.Separator /> : null}
+              {index !== links.length - 1 ? <BreadcrumbPrimitive.Separator /> : null}
             </React.Fragment>
           )
         })}
-      </Breadcrumb.List>
-    </Breadcrumb.Root>
+      </BreadcrumbPrimitive.List>
+    </BreadcrumbPrimitive.Root>
   )
 }
