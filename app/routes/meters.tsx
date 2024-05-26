@@ -5,110 +5,116 @@ import { cn } from '@/lib/utils'
 import { Box, Button, DropdownMenu, Flex, Heading, Tabs, Text } from '@radix-ui/themes'
 import { CellValueChangedEvent, ColDef } from 'ag-grid-community'
 import { BookmarkIcon, TableIcon, UploadIcon } from '@radix-ui/react-icons'
-import { Link } from '@remix-run/react'
+import { Link as RouterLink } from '@remix-run/react'
 import { METERS_LIST } from '@/lib/meters-list'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 export default function Dashboard() {
   return (
-    <Box px="6" py="3" width="100%" className="space-y-2">
-      <Heading>Meters</Heading>
-      <ul className="flex justify-between flex-nowrap">
-        {Object.entries(METERS_LIST).map(([meter_type, meters]) => {
-          return (
-            <Flex direction="column" key={meter_type}>
-              <Flex
-                justify="center"
-                align="center"
-                className="bg-[--gray-3] border border-[--gray-6] rounded-t-md"
-              >
-                <Text size="2">{meter_type}</Text>
-              </Flex>
-              <Flex>
-                {Object.entries(meters).map(([meter_type, meters]) => {
-                  return (
-                    <Box
-                      p="2"
-                      minWidth="80px"
-                      key={meter_type}
-                      className="bg-[--gray-2] space-y-2 first:rounded-bl-md last:rounded-br-md border border-[--gray-6]"
-                    >
-                      <Flex justify="between" align="center" gap="4">
-                        <Heading as="h6" size="2">
-                          {meter_type}
-                        </Heading>
-                      </Flex>
-                      <Flex direction="column" align="stretch" gap="1">
-                        {meters.map((meter) => {
-                          return (
-                            <li key={meter.id}>
-                              <DropdownMenu.Root>
-                                <DropdownMenu.Trigger>
-                                  <Button
-                                    size="1"
-                                    color={meter.is_exist ? 'jade' : 'ruby'}
-                                    variant="soft"
-                                    className={cn(
-                                      'w-full',
-                                      meter.is_primary && meter.is_exist && 'bg-[--jade-7]'
-                                    )}
-                                  >
-                                    {meter.type}
-                                  </Button>
-                                </DropdownMenu.Trigger>
-                                <DropdownMenu.Content>
-                                  <DropdownMenu.Item asChild>
-                                    <Link to="/">
-                                      {meter.is_exist ? (
-                                        <>
-                                          <TableIcon />
-                                          View meter data
-                                        </>
-                                      ) : (
-                                        <>
-                                          <UploadIcon />
-                                          Upload meter data
-                                        </>
+    <Box width="100%">
+      <Box p="4" mb="4" className="border-b">
+        <Breadcrumbs links={[{ label: 'Home', to: '/' }, { label: 'Meters' }]} />
+      </Box>
+
+      <Box px="4">
+        <ul className="flex justify-between flex-nowrap">
+          {Object.entries(METERS_LIST).map(([meter_type, meters]) => {
+            return (
+              <Flex direction="column" key={meter_type}>
+                <Flex
+                  justify="center"
+                  align="center"
+                  className="bg-[--gray-3] border border-[--gray-6] rounded-t-md"
+                >
+                  <Text size="2">{meter_type}</Text>
+                </Flex>
+                <Flex>
+                  {Object.entries(meters).map(([meter_type, meters]) => {
+                    return (
+                      <Box
+                        p="2"
+                        minWidth="80px"
+                        key={meter_type}
+                        className="bg-[--gray-2] space-y-2 first:rounded-bl-md last:rounded-br-md border border-[--gray-6]"
+                      >
+                        <Flex justify="between" align="center" gap="4">
+                          <Heading as="h6" size="2">
+                            {meter_type}
+                          </Heading>
+                        </Flex>
+                        <Flex direction="column" align="stretch" gap="1">
+                          {meters.map((meter) => {
+                            return (
+                              <li key={meter.id}>
+                                <DropdownMenu.Root>
+                                  <DropdownMenu.Trigger>
+                                    <Button
+                                      size="1"
+                                      color={meter.is_exist ? 'jade' : 'ruby'}
+                                      variant="soft"
+                                      className={cn(
+                                        'w-full',
+                                        meter.is_primary && meter.is_exist && 'bg-[--jade-7]'
                                       )}
-                                    </Link>
-                                  </DropdownMenu.Item>
-                                  <DropdownMenu.Item
-                                    onClick={() => console.log('Bookmarked')}
-                                    disabled={!meter.is_exist || meter.is_primary}
-                                  >
-                                    <BookmarkIcon />
-                                    Set as a Primary{' '}
-                                  </DropdownMenu.Item>
-                                </DropdownMenu.Content>
-                              </DropdownMenu.Root>
-                            </li>
-                          )
-                        })}
-                      </Flex>
-                    </Box>
-                  )
-                })}
+                                    >
+                                      {meter.type}
+                                    </Button>
+                                  </DropdownMenu.Trigger>
+                                  <DropdownMenu.Content>
+                                    <DropdownMenu.Item asChild>
+                                      <RouterLink to="/">
+                                        {meter.is_exist ? (
+                                          <>
+                                            <TableIcon />
+                                            View meter data
+                                          </>
+                                        ) : (
+                                          <>
+                                            <UploadIcon />
+                                            Upload meter data
+                                          </>
+                                        )}
+                                      </RouterLink>
+                                    </DropdownMenu.Item>
+                                    <DropdownMenu.Item
+                                      onClick={() => console.log('Bookmarked')}
+                                      disabled={!meter.is_exist || meter.is_primary}
+                                    >
+                                      <BookmarkIcon />
+                                      Set as a Primary{' '}
+                                    </DropdownMenu.Item>
+                                  </DropdownMenu.Content>
+                                </DropdownMenu.Root>
+                              </li>
+                            )
+                          })}
+                        </Flex>
+                      </Box>
+                    )
+                  })}
+                </Flex>
               </Flex>
-            </Flex>
-          )
-        })}
-      </ul>
+            )
+          })}
+        </ul>
 
-      <Tabs.Root defaultValue="deviation">
-        <Tabs.List>
-          <Tabs.Trigger value="deviation">Deviation</Tabs.Trigger>
-          <Tabs.Trigger value="meters">Meters</Tabs.Trigger>
-        </Tabs.List>
+        <Tabs.Root defaultValue="deviation">
+          <Tabs.List>
+            <Tabs.Trigger value="deviation">Deviation</Tabs.Trigger>
+            <Tabs.Trigger value="meters">Meters</Tabs.Trigger>
+          </Tabs.List>
 
-        <Box pt="3">
-          <Tabs.Content value="deviation">
-            <EditableGridExample />
-          </Tabs.Content>
+          <Box pt="3">
+            <Tabs.Content value="deviation">
+              <EditableGridExample />
+            </Tabs.Content>
 
-          <Tabs.Content value="meters">
-            <EditableGridExample />
-          </Tabs.Content>
-        </Box>
-      </Tabs.Root>
+            <Tabs.Content value="meters">
+              <EditableGridExample />
+            </Tabs.Content>
+          </Box>
+        </Tabs.Root>
+      </Box>
     </Box>
   )
 }
