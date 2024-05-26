@@ -12,7 +12,7 @@ const SheetTitle = SheetPrimitive.Title
 const SheetDescription = SheetPrimitive.Description
 
 const sheetVariants = cva(
-  'fixed z-50 gap-4 rounded-none transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500',
+  'fixed z-50 rounded-none transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500',
   {
     variants: {
       side: {

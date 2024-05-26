@@ -13,7 +13,7 @@ import { Sheet } from '@/components/sheet'
 export default function Dashboard() {
   return (
     <Box width="100%">
-      <Flex p="4" mb="4" className="border-b" justify="between">
+      <Flex px="4" py="3" mb="4" align="center" className="border-b" justify="between">
         <Breadcrumb links={[{ label: 'Home', to: '/' }, { label: 'Meters' }]} />
         <Sheet.Root>
           <Sheet.Trigger>
