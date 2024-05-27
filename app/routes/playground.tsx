@@ -36,6 +36,7 @@ export default function Playground() {
           ]}
         />
       </Flex>
+
       <Box p="4">
         <Box maxWidth="420px">
           <Box p="4" className="border border-[--gray-a6] rounded-md">
