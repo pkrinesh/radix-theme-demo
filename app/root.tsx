@@ -67,6 +67,19 @@ export default function App() {
                       Meters
                     </NavLink>
                   </li>
+                  <li>
+                    <NavLink
+                      to="/playground"
+                      className={({ isActive }) =>
+                        clsx(
+                          'text-sm hover:text-[--gray-11]',
+                          isActive ? 'text-[--gray-12]' : 'text-[--gray-10]'
+                        )
+                      }
+                    >
+                      Playground
+                    </NavLink>
+                  </li>
                 </ul>
               </nav>
             </Flex>

@@ -48,7 +48,7 @@ const BreadcrumbLink = React.forwardRef<
     <Link
       ref={ref}
       color="gray"
-      size="3"
+      size="2"
       className={cn('transition-colors hover:text-foreground', className)}
       {...props}
     />
@@ -66,7 +66,7 @@ const BreadcrumbPage = React.forwardRef<
     aria-current="page"
     color="gray"
     highContrast={isActive}
-    size="3"
+    size="2"
     weight="regular"
     asChild
   >
